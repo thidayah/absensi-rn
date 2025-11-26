@@ -1,4 +1,5 @@
 import { API } from "@/api/client";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -11,7 +12,8 @@ export default function Login() {
     const res = await API.post('/auth', { email, password });
     console.log(res);    
     if (res.data.status) {
-      router.replace('/dashboards');
+      await AsyncStorage.setItem('user', JSON.stringify(res.data.data));
+      router.replace('/dashboard');
     } else {
       alert(res.data.message);
     }
