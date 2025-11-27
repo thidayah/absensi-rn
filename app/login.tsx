@@ -12,7 +12,7 @@ export default function Login() {
     const res = await API.post('/auth', { email, password });
     console.log(res);    
     if (res.data.status) {
-      await AsyncStorage.setItem('user', JSON.stringify(res.data.data));
+      await AsyncStorage.setItem('user', JSON.stringify(res.data.user));
       router.replace('/dashboard');
     } else {
       alert(res.data.message);
